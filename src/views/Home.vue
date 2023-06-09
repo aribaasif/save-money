@@ -65,7 +65,6 @@ const config = {
             weight: "bold",
             size: "11",
           },
-          
         },
         title: {
           text: "Transactions",
@@ -82,12 +81,12 @@ const config = {
         min: -60,
         max: 60,
         ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: function(value, index, ticks) {
-                        return value + "k";
-                    },
-                  stepSize: 20,
-                },
+          // Include a dollar sign in the ticks
+          callback: function (value, index, ticks) {
+            return value + "k";
+          },
+          stepSize: 20,
+        },
         stacked: true,
       },
     },
@@ -130,58 +129,76 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div class="details">
-        <div class="card">
-          <p class="balance">
-            AVAILABLE BALANCE <br />
-            <span> 1,000,000 PKR </span>
-          </p>
-          <br /><br />
-          <p class="account">
-            Saving Account <br />
-            <span> 1001 0092 5624 8928 </span>
-          </p>
+      <div class="maincourse">
+        <div class="details">
+          <div class="card">
+            <p class="balance">
+              AVAILABLE BALANCE <br />
+              <span> 1,000,000 PKR </span>
+            </p>
+            <br /><br />
+            <p class="account">
+              Saving Account <br />
+              <span> 1001 0092 5624 8928 </span>
+            </p>
+          </div>
+
+          <span class="options-main">
+            <span class="options-row">
+              <span class="options-container">
+                <span class="options">
+                  <font-awesome-icon
+                    class="icon"
+                    icon="fa-solid fa-arrows-up-to-line"
+                  />
+                  <p>Send Money</p>
+                </span>
+              </span>
+              <span class="options-container">
+                <span class="options">
+                  <font-awesome-icon
+                    class="icon"
+                    icon="fa-solid fa-arrows-down-to-line"
+                  />
+                  <p>Request Money</p>
+                </span>
+              </span>
+            </span>
+            <span class="options-row">
+              <span class="options-container">
+                <span class="options">
+                  <font-awesome-icon
+                    class="icon"
+                    icon="fa-solid fa-money-bills"
+                  />
+                  <p>Bills & Topup</p>
+                </span>
+              </span>
+              <span class="options-container">
+                <span class="options">
+                  <font-awesome-icon class="icon" icon="fa-solid fa-bullseye" />
+                  <p>Add Saving Goal</p>
+                </span>
+              </span>
+            </span>
+          </span>
         </div>
-        <span class="options-main">
-          <span class="options-row">
-            <span class="options-container">
-              <span class="options">
-                <font-awesome-icon
-                  class="icon"
-                  icon="fa-solid fa-arrows-up-to-line"
-                />
-                <p>Send Money</p>
-              </span>
-            </span>
-            <span class="options-container">
-              <span class="options">
-                <font-awesome-icon
-                  class="icon"
-                  icon="fa-solid fa-arrows-down-to-line"
-                />
-                <p>Request Money</p>
-              </span>
-            </span>
-          </span>
-          <span class="options-row">
-            <span class="options-container">
-              <span class="options">
-                <font-awesome-icon
-                  class="icon"
-                  icon="fa-solid fa-money-bills"
-                />
-                <p>Bills & Topup</p>
-              </span>
-            </span>
-            <span class="options-container">
-              <span class="options">
-                <font-awesome-icon class="icon" icon="fa-solid fa-bullseye" />
-                <p>Add Saving Goal</p>
-              </span>
-            </span>
-          </span>
-        </span>
+        <div class="chart1">
+          <div class="areachart1">
+            <div class="areachart">
+              <p class="titleincome">Category of Income</p>
+              <div class="itemsincome">
+                <div class="incomes"></div>
+                <div class="tap">
+                  Tap to see <br />
+                  Expenses
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="chart">
         <canvas id="myChart"></canvas>
       </div>
@@ -189,6 +206,49 @@ onMounted(() => {
   </div>
 </template>
 <style scoped>
+.itemsincome {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.areachart {
+  height: 100%;
+  width: 650px;
+}
+.incomes {
+  width: 75%;
+  height: 80%;
+  background-color: bisque;
+  margin: 10px;
+}
+.tap {
+  background-color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  color: #088c83;
+  font-size: 20px;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.titleincome {
+  color: #303030;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.maincourse {
+  display: flex;
+  justify-content: space-between;
+}
+.chart1 .areachart1 {
+  height: 100%;
+  width: 100%;
+}
 .options-container:hover {
   color: #08c39a;
   font-weight: 900;
@@ -213,7 +273,8 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
 }
-.details, .chart {
+.details,
+.chart {
   width: 53%;
   display: flex;
   justify-content: space-between;
@@ -285,5 +346,10 @@ onMounted(() => {
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
   padding: 30px;
+}
+.charts {
+  height: 100%;
+  width: 100%;
+  background-color: red;
 }
 </style>
