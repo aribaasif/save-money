@@ -1,6 +1,101 @@
 <script setup>
 import sidebar from "./Sidebar.vue";
+import { RouterView } from "vue-router";
+import Chart from "chart.js/auto";
+import { onMounted } from "vue";
+const labels = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: "Incoming",
+      backgroundColor: "#088c83",
+      borderColor: "#088c83",
+      data: [15, 25, 15, 20, 20, 50, 20, 5, 50, 25, 15, 20],
+    },
+    {
+      label: "Outgoing",
+      backgroundColor: "#04dbc3",
+      borderColor: "#04dbc3",
+      data: [-20, -10, -25, -20, -50, -20, -50, -25, -10, -15, -10, -20],
+    },
+  ],
+};
+const config = {
+  type: "bar",
+  data: data,
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: "Transactions",
+        padding: {
+          top: 10,
+          bottom: -40,
+        },
+        align: "start",
+        font: {
+          weight: "bolder",
+          size: "20",
+        },
+      },
 
+      legend: {
+        display: true,
+        position: "top",
+        align: "end",
+        padding: 100,
+        labels: {
+          padding: 40,
+          usePointStyle: true,
+          font: {
+            weight: "bold",
+            size: "11",
+          },
+          
+        },
+        title: {
+          text: "Transactions",
+        },
+      },
+    },
+    barPercentage: 0.2,
+    borderRadius: 15,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        min: -60,
+        max: 60,
+        ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, ticks) {
+                        return value + "k";
+                    },
+                  stepSize: 20,
+                },
+        stacked: true,
+      },
+    },
+  },
+};
+onMounted(() => {
+  const myChart = new Chart(document.getElementById("myChart"), config);
+});
 </script>
 <template>
   <div class="home">
@@ -87,14 +182,14 @@ import sidebar from "./Sidebar.vue";
           </span>
         </span>
       </div>
-      <div>
-        <p>canvas</p>
-</div>
+      <div class="chart">
+        <canvas id="myChart"></canvas>
+      </div>
     </div>
   </div>
 </template>
 <style scoped>
-.options-container:hover{
+.options-container:hover {
   color: #08c39a;
   font-weight: 900;
 }
@@ -118,7 +213,7 @@ import sidebar from "./Sidebar.vue";
   display: flex;
   flex-direction: row;
 }
-.details {
+.details, .chart {
   width: 53%;
   display: flex;
   justify-content: space-between;
