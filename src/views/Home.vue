@@ -3,6 +3,31 @@ import sidebar from "./Sidebar.vue";
 import { RouterView } from "vue-router";
 import Chart from "chart.js/auto";
 import { onMounted } from "vue";
+const data1 = {
+  datasets: [{
+    label: 'Buying A Car',
+    data: [70, 30],
+    backgroundColor: [
+      '#ff47ab',
+      '#ffd6ec'
+    ],
+    hoverOffset: 4,
+    borderRadius: [15,-15]
+  }]
+};
+const data2 = {
+  datasets: [{
+    label: 'Buying A House',
+    data: [60, 40],
+    backgroundColor: [
+      '#08c39a',
+      '#e5f4ff'
+    ],
+    hoverOffset: 4,
+    borderRadius: [15,-15]
+  }]
+};
+
 const labels = [
   "Jan",
   "Feb",
@@ -28,7 +53,7 @@ const data = {
     },
     {
       label: "Outgoing",
-      backgroundColor: "#04dbc3",
+      backgroundColor: "#08c39a",
       borderColor: "#04dbc3",
       data: [-20, -10, -25, -20, -50, -20, -50, -25, -10, -15, -10, -20],
     },
@@ -92,8 +117,24 @@ const config = {
     },
   },
 };
+const config1 = {
+  type: 'doughnut',
+  data: data1,
+  options: {
+    cutout: '80%',
+  }
+};
+const config2 = {
+  type: 'doughnut',
+  data: data2,
+  options: {
+    cutout: '80%',
+  }
+};
 onMounted(() => {
   const myChart = new Chart(document.getElementById("myChart"), config);
+  const myChart1 = new Chart(document.getElementById("myChart1"), config1);
+  const myChart2 = new Chart(document.getElementById("myChart2"), config2);
 });
 </script>
 <template>
@@ -188,10 +229,24 @@ onMounted(() => {
             <div class="areachart">
               <p class="titleincome">Category of Income</p>
               <div class="itemsincome">
-                <div class="incomes"></div>
+                <div class="incomes">
+                  <div class="percent80">
+                    <p>80%<br><span>Salary</span></p>
+                  </div>
+                  <div class="percent10">
+                    <p>10%<br><span>Rent</span></p>
+                  </div>
+                  <div class="percent7">
+                    <p>7%<br><span>Salary</span></p>
+                  </div>
+                  <div class="percent3">
+                    <p>3%<br><span>Shop</span></p>
+                  </div>
+                </div>
                 <div class="tap">
-                  Tap to see <br />
-                  Expenses
+                  <div class="expenses">
+                    <p>Tap to see <br> Expenses</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -200,54 +255,216 @@ onMounted(() => {
       </div>
 
       <div class="chart">
+        <div class="canvasdiv">
         <canvas id="myChart"></canvas>
+        </div>
+        <div class="goals">
+          <p class="titleincome">Saving Goals</p>
+          <div class="goalscharts">
+            <div class="goal1">
+              
+              <canvas id="myChart1"></canvas><br>
+              <p class="goaltext">Buying A Car</p>
+            </div>
+            <div class="goal2">
+              <canvas id="myChart2"></canvas><br>
+              <p class="goaltext">Buying A House</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.itemsincome {
+.percentage{
+}
+.goalscharts{
+  width: 90%;
+  height: 90%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 5px;
+}
+.goaltext{
+  color: #878787;
+  font-weight: 500;
+}
+.goal1{
+  margin-top: 25px;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  margin-left: 85px;
+}
+.goal2{
+  margin-left: 45px;
+  margin-top: 25px;
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.goals{
+  background-color: white;
+  border-radius: 20px;
+  width: 70%;
+  height: 78%;
+  margin-left: 15px;
+  margin-top:  70px;
+}
+.tap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 40%;
+}
+.expenses{
+  color: #08c39a;
+  cursor: pointer;
+  background-color: #e5f4ff;
+  height: 170px;
+  width: 170px;
+  margin-left: -100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.expenses p{
+  font-weight: 700;
+}
+.itemsincome {
+  margin-top: -20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 .areachart {
   height: 100%;
   width: 650px;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: -15px;
+  margin-top: 28px;
 }
 .incomes {
-  width: 75%;
-  height: 80%;
-  background-color: bisque;
-  margin: 10px;
-}
-.tap {
-  background-color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  color: #088c83;
-  font-size: 20px;
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  text-align: center;
+  width: 70%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+}
+.percent3{
+  background-color: #a762ff;
+  color: white;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 170px;
+  margin-left: 60px;
+}
+.percent3 p{
+  font-weight: bolder;
+  font-size: 10px;
+}
+.percent3 p span{
+  font-weight: 400;
+}
+.percent7{
+  cursor: pointer;
+  background-color: #ff47ab;
+  color: white;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: -220px;
+  margin-top: 130px;
+}
+.percent7 p{
+  font-weight: bolder;
+  font-size: 11px;
+}
+.percent7 p span{
+  font-weight: 400;
+}
+.percent10{
+  cursor: pointer;
+  background-color: black;
+  margin-left: -70px;
+  margin-top:-90px;
+  color: white;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.percent10 p{
+  font-weight: bolder;
+  font-size: 12px;
+}
+.percent10 p span{
+  font-weight: 400;
+}
+.percent80{
+  cursor: pointer;
+  background-color: #08c39a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+.percent80 p{
+  font-weight: bolder;
+}
+.percent80 p span{
+  font-weight: 400;
 }
 .titleincome {
-  color: #303030;
+  padding-top: 10px;
+  color: #666;
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 20px;
+  padding-left: 10px;
 }
 .maincourse {
   display: flex;
   justify-content: space-between;
 }
 .chart1 .areachart1 {
-  height: 100%;
+  margin-top: -19px;
+  margin-left: 10px;
+  height: 110%;
   width: 100%;
+  border-radius: 20px;
 }
 .options-container:hover {
   color: #08c39a;
@@ -275,7 +492,8 @@ onMounted(() => {
 }
 .details,
 .chart {
-  width: 53%;
+  width: 100%;
+  height: 52%;
   display: flex;
   justify-content: space-between;
 }
@@ -341,7 +559,7 @@ onMounted(() => {
   background-color: #0e152c;
 }
 .home-content {
-  background-color: #ecedf6;
+  background-color: #f4f7f9;
   width: 96vw;
   border-bottom-left-radius: 30px;
   border-top-left-radius: 30px;
@@ -351,5 +569,14 @@ onMounted(() => {
   height: 100%;
   width: 100%;
   background-color: red;
+}
+canvas{
+  
+}
+.canvasdiv{
+  width: 1130px;
+  padding: 5px;
+  background-color: white;
+  border-radius: 20px;
 }
 </style>
